@@ -3,3 +3,7 @@
 @tailwind utilities;
 
 @import "./reset.scss";
+
+html, body {
+    @apply text-black bg-white dark:bg-black dark:text-white;
+}

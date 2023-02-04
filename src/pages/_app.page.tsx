@@ -1,17 +1,19 @@
-import '@/app/styles/globals.scss'
-import { Advent_Pro } from '@next/font/google'
+import '../app/styles/globals.scss'
 import type { AppProps } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
+import React from 'react'
+import { adventProFont } from 'app/fonts/advent-pro'
+import { Footer, Header } from 'widgets'
 
-const adventPro = Advent_Pro({ subsets: ['latin', "cyrillic"], weight: ["400"] })
 
 
 function App({ Component, pageProps }: AppProps) {
 
-
   return (
-    <div className={adventPro.className}>
+    <div className={adventProFont.className}>
+      <Header />
       <Component {...pageProps} />
+      <Footer />
     </div>
   )
 }

@@ -9,8 +9,8 @@ export default function Home() {
 
   return (
     <>
-      <main role="main">
-
+      <main role="main" className='bg-white dark:bg-black'>
+        
       </main>
     </>
   )
