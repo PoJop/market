@@ -8,6 +8,9 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
+    'storybook-addon-manual-mocks',
+    "storybook-addon-next-router",
+
     {
       /**
        * Fix Storybook issue with PostCSS@8
@@ -32,7 +35,7 @@ module.exports = {
   core: {
     builder: 'webpack5',
   },
-  webpackFinal: (config) => {
+  webpackFinal: async (config) => {
     /**
      * Add support for alias-imports
      * @see https://github.com/storybookjs/storybook/issues/11989#issuecomment-715524391
@@ -51,6 +54,16 @@ module.exports = {
       'node_modules',
     ];
 
-    return config;
+
+    config.resolve.fallback = {
+      fs: false,
+      tls: false,
+      net: false,
+      module: false,
+      path: require.resolve('path-browserify'),
+    }
+
+    
+    return config
   },
-};
+}

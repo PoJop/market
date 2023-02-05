@@ -1,7 +1,7 @@
 import localFont from '@next/font/local'
 
 
-export const adventProFont = localFont({
+export const firaSansFont = localFont({
     src: [
         {
             path: './sourse/300.woff2',
@@ -19,8 +19,8 @@ export const adventProFont = localFont({
             style: 'normal',
         },
         {
-            path: './sourse/800.woff2',
-            weight: '800',
+            path: './sourse/700.woff2',
+            weight: '700',
             style: 'normal',
         },
     ],

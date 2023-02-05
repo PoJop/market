@@ -4,6 +4,7 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: ['class', '[data-mode="dark"]'],
+  important: true,
   corePlugins: {
     textOpacity: false,
     backgroundOpacity: false,
@@ -32,6 +33,10 @@ module.exports = {
     },
     extend: {
       colors: {
+        "dark-900": "#1B1F26",
+        "dark-800": "#1F222B",
+        "dark-500": "#282D37",
+        "dark-200": "#2D333F",
       },
       zIndex: {
       },

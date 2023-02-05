@@ -4,6 +4,15 @@
 
 @import "./reset.scss";
 
-html, body {
-    @apply text-black bg-white dark:bg-black dark:text-white;
+html {
+
+    font-weight: 300;
+
+    @apply  transition-all;
+    &[data-mode="dark"] {
+        @apply bg-dark-900 text-white;
+    }
+    &[data-mode="light"] {
+        @apply text-black bg-white;
+    }
 }
