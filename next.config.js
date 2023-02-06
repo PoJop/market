@@ -6,7 +6,10 @@ const nextConfig = {
   appDir: true,
   swcMinify: true,
   i18n,
-  pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js']
+  pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
+  images: {
+    domains: ['cdn.shopify.com'],
+  },
 }
 
 module.exports = nextConfig

@@ -8,13 +8,13 @@ export const Header: React.FC = () => {
     const { t } = useTranslation('routers')
     return (
         <>
-            <header >
+            <header className="fixed top-0 left-0 w-full py-2 theme-mode ">
                 <Container className="flex items-center justify-between">
                     <div>
                         <nav>
-                            <ul className="flex gap-3">
+                            <ul className="flex gap-5">
                                 {HEADER_NAV.map(({ linkId, link }, idx) =>
-                                    <li key={idx}>
+                                    <li key={idx} className="p-2">
                                         <PrimaryLink href={link}>
                                             {t(`header.router.${linkId}`)}
                                         </PrimaryLink>

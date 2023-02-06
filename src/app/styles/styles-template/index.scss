@@ -1,0 +1,5 @@
+@layer utilities {
+    .theme-mode {
+        @apply bg-white dark:bg-dark-900 transition-all;
+    }
+}

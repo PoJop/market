@@ -37,6 +37,9 @@ module.exports = {
         "dark-800": "#1F222B",
         "dark-500": "#282D37",
         "dark-200": "#2D333F",
+
+        "blue-800": "#304599",
+        "blue-600": "#3E63F6",
       },
       zIndex: {
       },

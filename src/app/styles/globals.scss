@@ -3,16 +3,41 @@
 @tailwind utilities;
 
 @import "./reset.scss";
+@import "./styles-template/index.scss";
+
+
+@mixin scrollbar() {
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        @apply bg-blue-600;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-blue-800 ;
+    }
+}
 
 html {
 
     font-weight: 300;
 
-    @apply  transition-all;
+    @apply transition-all;
+    @include scrollbar();
+
     &[data-mode="dark"] {
         @apply bg-dark-900 text-white;
+
     }
+
     &[data-mode="light"] {
         @apply text-black bg-white;
+
     }
 }
