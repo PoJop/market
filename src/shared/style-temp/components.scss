@@ -1,0 +1,46 @@
+@layer components {
+   .link {
+      @apply uppercase;
+      @apply hover:opacity-70 transition-opacity;
+   }
+
+   .link-low {
+      @apply hover:opacity-70 transition-opacity;
+   }
+
+}
+
+@layer components {
+   .btn-general {
+      @apply px-3 py-1 border border-white;
+      @apply hover:opacity-70 transition-opacity;
+   }
+}
+
+@layer components {
+   .skeleton {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%), linear-gradient(270deg, rgba(0, 0, 0, 0.2) 1.06%, rgba(0, 0, 0, 0) 50%);
+      animation: 3s linear infinite alternate skeleton;
+      background-size: 400%; // Можно менять и подбирать интенсивность
+      height: 100%;
+      background-color: #fff;
+   }
+
+   @keyframes skeleton {
+      0% {
+         background-position: 0% 0%;
+      }
+
+      100% {
+         background-position: 100% 0%;
+      }
+   }
+}
+@layer components {
+  
+   .icon-base {
+      &:hover {
+         @apply text-blue-600 transition-colors;
+      }
+   }
+}

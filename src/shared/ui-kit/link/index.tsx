@@ -10,7 +10,7 @@ export const PrimaryLink: React.FC<IPrimaryLinkProps> = ({ children, ...arg }) =
 
     return (
         <Link {...arg} legacyBehavior>
-            <a className="uppercase text-[15px] font-[400] opacity-60 hover:opacity-100 transition-all">
+            <a className="uppercase text-[15px] font-[400] opacity-60 hover:opacity-100 duration-[0s]">
                 {children}
             </a>
         </Link>

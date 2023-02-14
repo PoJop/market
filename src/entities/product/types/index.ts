@@ -6,7 +6,8 @@ import { IImages, IPriceRange } from "@/shared/types/shopify-graphql-types";
 export interface IProductBase {
     id: string;
     title: string;
-    descriptionHtml: string;
+    handle: string;
+    description: string;
     images: IImages;
     priceRange: IPriceRange;
 }

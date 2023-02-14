@@ -1,0 +1,63 @@
+import { initializeApollo } from '@/app/libs/apollo/apollo-client';
+import { getAllUniqueKeysInDepths } from '@/shared/helpers';
+import { GET_SHOPIFY_PRODUCTS } from '.';
+
+
+describe("test req GET_SHOPIFY_PRODUCTS", () => {
+    const clientMock = initializeApollo()
+
+    const necessaryResMock = getAllUniqueKeysInDepths({
+        object: {
+            "products": {
+                "__typename": "ProductConnection",
+                "edges": [
+                    {
+                        "__typename": "ProductEdge",
+                        "node": {
+                            "__typename": "Product",
+                            "title": "fish",
+                            "images": {
+                                "__typename": "ImageConnection",
+                                "edges": [
+                                    {
+                                        "__typename": "ImageEdge",
+                                        "node": {
+                                            "__typename": "Image",
+                                            "id": "gid://shopify/ProductImage/40551705346337",
+                                            "width": 352,
+                                            "height": 380,
+                                            "url": "https://cdn.shopify.com/s/files/1/0714/5318/0193/products/image7.png?v=1675629318",
+                                            "altText": null
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    })
+    let fetchResMock: any = null
+
+    beforeAll(async () => {
+        const { data } = await clientMock.query({
+            query: GET_SHOPIFY_PRODUCTS,
+            variables: {
+                first: 1,
+                images: 1
+            }
+        });
+        fetchResMock = getAllUniqueKeysInDepths({ object: data })
+    })
+
+
+    test("Check res has all necessary data", () => {
+        expect(fetchResMock).not.toBeNull()
+        expect(fetchResMock).toEqual(necessaryResMock);
+    });
+
+    afterAll(() => {
+        fetchResMock = null
+    })
+});

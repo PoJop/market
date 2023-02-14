@@ -38,10 +38,14 @@ module.exports = {
         "dark-500": "#282D37",
         "dark-200": "#2D333F",
 
+
+        "light-200": "#f0f0f0",
+
         "blue-800": "#304599",
         "blue-600": "#3E63F6",
       },
       zIndex: {
+        "header": 1000
       },
       borderRadius: {
       },

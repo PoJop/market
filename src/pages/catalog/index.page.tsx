@@ -1,5 +1,3 @@
-import Client from 'shopify-buy';
-
 import { GetServerSideProps, } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react';
@@ -8,40 +6,58 @@ import { Catalog } from '@/widgets';
 import { Main } from '@/shared/ui-kit';
 import { GET_SHOPIFY_PRODUCTS } from '@/entities/product/schemes';
 import { IResProductsCard } from '@/entities/product/schemes/get-products';
+import { useNetworkConnection } from '@/shared/hooks/use-network-connection';
+import { ApolloQueryResult, useQuery } from '@apollo/client';
 
 
-export default function CatalogPage({ data }: IResProductsCard) {
+interface ICatalogPageProps {
+  productsData: ApolloQueryResult<IResProductsCard>
+}
+export default function CatalogPage({ productsData }: ICatalogPageProps) {
 
-  const { products: { edges } } = data
+  console.log(productsData)
+  // const {error} = useQuery(GET_SHOPIFY_PRODUCTS)
+  // console.log(error)
+  // const { networkConnection } = useNetworkConnection()
+
+  // React.useEffect(() => {
+  //   console.log(networkConnection)
+  // }, [networkConnection])
 
   return (
     <>
       <Main className='h-[200vh] ' >
-        <Catalog products={edges} />
+        <Catalog productsData={productsData} />
       </Main>
     </>
   )
 }
 
-
-
-
-
 export const getServerSideProps: GetServerSideProps = async ({ locale = '' }) => {
 
   const client = initializeApollo()
-  const { data } = await client.query({
-    query: GET_SHOPIFY_PRODUCTS,
-    variables: {
-      first: 12,
-      imagesFirst2: 2
-    }
-  });
+
+  let res: ApolloQueryResult<IResProductsCard> | null = null
+
+  try {
+    res = await client.query({
+      query: GET_SHOPIFY_PRODUCTS,
+      variables: {
+        first: 100,
+        images: 1,
+        truncateAt: 100,
+        language: locale.toUpperCase()
+      }
+    });
+  } catch (err) {
+
+  }
+
 
 
   return {
     props: {
-      data: data,
+      productsData: res,
       ...(await serverSideTranslations(locale, ['common', 'routers']))
     }
   }

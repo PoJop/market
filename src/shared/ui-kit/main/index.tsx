@@ -12,7 +12,7 @@ export const Main: React.FC<IMainProps> = ({ children, className, ...arg }) => {
 
     return (
         <>
-            <main className={cn("mt-[70px]", className)} {...arg}>
+            <main className={cn("pt-[70px]", className)} {...arg}>
                 {children}
             </main>
         </>

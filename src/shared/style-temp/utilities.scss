@@ -1,0 +1,8 @@
+@layer utilities {
+    .theme-mode {
+        @apply bg-white dark:bg-dark-900 transition-colors;
+    }
+    .theme-mode-content {
+        @apply bg-white dark:bg-dark-200 transition-colors;
+    }
+}
