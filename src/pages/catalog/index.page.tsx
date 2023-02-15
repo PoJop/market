@@ -1,13 +1,12 @@
 import { GetServerSideProps, } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import React from 'react';
-import { initializeApollo } from '@/app/libs/apollo/apollo-client';
 import { Catalog } from '@/widgets';
 import { Main } from '@/shared/ui-kit';
 import { GET_SHOPIFY_PRODUCTS } from '@/entities/product/schemes';
 import { IResProductsCard } from '@/entities/product/schemes/get-products';
-import { useNetworkConnection } from '@/shared/hooks/use-network-connection';
 import { ApolloQueryResult, useQuery } from '@apollo/client';
+import { initializeApolloShopify } from '@/shared/libs/apollo';
 
 
 interface ICatalogPageProps {
@@ -35,12 +34,12 @@ export default function CatalogPage({ productsData }: ICatalogPageProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale = '' }) => {
 
-  const client = initializeApollo()
+  const clientShopify = initializeApolloShopify()
 
   let res: ApolloQueryResult<IResProductsCard> | null = null
 
   try {
-    res = await client.query({
+    res = await clientShopify.query({
       query: GET_SHOPIFY_PRODUCTS,
       variables: {
         first: 100,
@@ -52,7 +51,6 @@ export const getServerSideProps: GetServerSideProps = async ({ locale = '' }) =>
   } catch (err) {
 
   }
-
 
 
   return {

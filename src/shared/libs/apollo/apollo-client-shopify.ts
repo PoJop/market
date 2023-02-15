@@ -1,10 +1,8 @@
-import { useMemo } from 'react'
-import { ApolloClient, HttpLink, InMemoryCache, from, NormalizedCacheObject, gql } from '@apollo/client'
+import { ApolloClient, HttpLink, InMemoryCache, from, NormalizedCacheObject, } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
-import { AppProps } from 'next/app'
-export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
+
 
 let apolloClient: null | ApolloClient<NormalizedCacheObject>
 
@@ -18,7 +16,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (networkError) console.log(`[Network error]: ${networkError}`)
 })
 
-const httpLink = new HttpLink({
+const link = new HttpLink({
     uri: `https://${process.env.NEXT_PUBLIC_STOREFRONT_STORE_NAME}.myshopify.com/api/2023-01/graphql`, // Server URL (must be absolute)
     credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
     headers: {
@@ -29,12 +27,16 @@ const httpLink = new HttpLink({
 function createApolloClient() {
     return new ApolloClient({
         ssrMode: typeof window === 'undefined',
-        link: from([errorLink, httpLink]),
+        link: from([
+            errorLink,
+            link
+        ]
+        ),
         cache: new InMemoryCache({}),
     })
 }
 
-export function initializeApollo(initialState = null) {
+export function initializeApolloShopify(initialState = null) {
     const _apolloClient = apolloClient ?? createApolloClient()
 
     // If your page has Next.js data fetching methods that use Apollo Client, the initial state
@@ -63,18 +65,4 @@ export function initializeApollo(initialState = null) {
     if (!apolloClient) apolloClient = _apolloClient
 
     return _apolloClient
-}
-
-export function addApolloState(client: ApolloClient<NormalizedCacheObject>, pageProps: AppProps['pageProps']) {
-    if (pageProps?.props) {
-        pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract()
-    }
-
-    return pageProps
-}
-
-export function useApollo(pageProps: AppProps['pageProps']) {
-    const state = pageProps[APOLLO_STATE_PROP_NAME]
-    const store = useMemo(() => initializeApollo(state), [state])
-    return store
 }

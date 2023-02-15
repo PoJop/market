@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetServerSideProps, } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { initializeApollo } from '@/app/libs/apollo/apollo-client';
+import { initializeApollo } from '@/app/libs/apollo/apollo-client-shopify';
 import { Container, Main } from '@/shared/ui-kit';
 import { ApolloQueryResult } from '@apollo/client';
 import { GET_SHOPIFY_SINGLE_PRODUCT, IResSingleProduct } from '@/entities/product/schemes/get-single-product';
