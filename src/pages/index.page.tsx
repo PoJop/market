@@ -1,6 +1,6 @@
 import { UiKit } from '@/shared'
 import { initializeApolloHygraph } from '@/shared/libs/apollo'
-import { Welcome } from '@/widgets'
+import { BlogPreview, Promotion, Welcome } from '@/widgets'
 import { ApolloQueryResult, gql } from '@apollo/client'
 import { GetServerSideProps, } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -10,8 +10,10 @@ export default function Home() {
 
   return (
     <>
-      <UiKit.Main role="main" className='h-full min-h-full'>
+      <UiKit.Main role="main" className=''>
         <Welcome />
+        <Promotion />
+        <BlogPreview />
       </UiKit.Main>
     </>
   )
@@ -20,33 +22,32 @@ export default function Home() {
 
 
 export const getServerSideProps: GetServerSideProps = async ({ locale = '' }) => {
-  const clientHygraph = initializeApolloHygraph()
+//   const clientHygraph = initializeApolloHygraph()
 
-  let res: ApolloQueryResult<any> | null = null
+//   let res: ApolloQueryResult<any> | null = null
 
-  try {
-    res = await clientHygraph.query({
-      query: gql`
-      query Smths {
-  smths {
-    createdAt
-    id
-    publishedAt
-    title
-    updatedAt
-  }
-}
-`,
-      variables: {
-      }
-    });
-  } catch (err) {
+//   try {
+//     res = await clientHygraph.query({
+//       query: gql`
+//       query Smths {
+//   smths {
+//     createdAt
+//     id
+//     publishedAt
+//     title
+//     updatedAt
+//   }
+// }
+// `,
+//       variables: {
+//       }
+//     });
+//   } catch (err) {
 
-  }
-console.log(res)
+//   }
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'routers']))
+      ...(await serverSideTranslations(locale, ['common', 'blog', "product", 'routers']))
     }
   }
 }

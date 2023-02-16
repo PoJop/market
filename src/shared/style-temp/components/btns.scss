@@ -1,0 +1,20 @@
+@layer components {
+
+    .btn-general {
+        @apply px-3 py-1 border border-white;
+        @apply hover:opacity-70 transition-opacity;
+    }
+
+    .btn-w-them-bg {
+        @apply  bg-white dark:bg-dark-200 text-black dark:text-white transition-all;
+        @apply  border-[0.2px] rounded-md border-dark-200  dark:border-white;
+        @apply  hover:bg-dark-200 hover:text-white  dark:hover:bg-white dark:hover:text-black ;
+        @apply  cursor-pointer;
+        @apply  disabled:pointer-events-none disabled:opacity-40;
+        
+        
+        &[data-active="1"] {
+            @apply  bg-dark-200 text-white  dark:bg-white dark:text-black ;
+        }
+    }
+}

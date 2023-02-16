@@ -1,5 +1,7 @@
 import { CATALOG_PAGE } from "@/app/consts/routers"
+import { Components } from "@/shared"
 import { BagIcon, CheckmarkIcon } from "@/shared/assets/icons"
+import { useInViewport } from "@/shared/hooks/use-in-viewport"
 import cn from "classnames"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,11 +11,18 @@ import { IProductCard } from "../../types"
 
 interface IProductCartProps {
     data: IProductCard
+    idx?: number
 }
 
-export const ProductCart: React.FC<IProductCartProps> = ({ data }) => {
+export const ProductCart: React.FC<IProductCartProps> = ({ data, idx }) => {
 
     const [hover, setHover] = React.useState(false)
+    const componentRef = React.useRef<HTMLElement>(null)
+
+
+    // React.useEffect(() => {
+    //     console.log(inViewport)
+    // }, [inViewport])
 
     const { push } = useRouter()
 
@@ -22,21 +31,37 @@ export const ProductCart: React.FC<IProductCartProps> = ({ data }) => {
     // const goToSingleProduct = () => push(singleProductPageLink)
     const addToCart = () => {
     }
-
     return (
         <>
             <article
+                data-product-id={data.node.id}
+                data-product-idx={idx}
                 className={cn(
-                    "overflow-hidden shadow-xl rounded-[6px] theme-mode-content  flex flex-col cursor-pointer ",
-                    "hover:shadow-lg  transition-all"
+                     "overflow-hidden shadow-xl rounded-[6px] flex flex-col cursor-pointer relative ",
+                    // "hover:shadow-lg ",
+                    // { "opacity-0": !inViewport }
+
+
                 )}
                 // onClick={goToSingleProduct}
                 onMouseOut={() => setHover(false)}
                 onMouseOver={() => setHover(true)}
             >
-                <div className="overflow-hidden flex-[0_0_300px]">
+
+                <div className="absolute top-0 left-0 p-1 z-[20]">
+                    <ul className="flex flex-col">
+                        {[1].map((elem, idx) =>
+                            <li key={idx} className={"p-2 bg-red-600 text-white"}>
+                                Discount
+                            </li>
+                        )}
+                    </ul>
+                </div>
+
+
+                <div className="overflow-hidden flex-[0_0_240px]">
                     {data.node.images.edges?.[0] &&
-                        <Image
+                        <Components.LazyImage
                             width={data.node.images.edges?.[0].node.width}
                             height={data.node.images.edges?.[0].node.width}
                             src={String(data.node.images.edges?.[0].node.url)}

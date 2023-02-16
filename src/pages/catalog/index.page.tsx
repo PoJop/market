@@ -7,32 +7,32 @@ import { GET_SHOPIFY_PRODUCTS } from '@/entities/product/schemes';
 import { IResProductsCard } from '@/entities/product/schemes/get-products';
 import { ApolloQueryResult, useQuery } from '@apollo/client';
 import { initializeApolloShopify } from '@/shared/libs/apollo';
+import { isIdxBot } from '@/shared/helpers';
+import { IProductCard } from '@/entities/product/types';
+import { faker } from '@faker-js/faker';
+import { createRandomProductCard } from '@/entities/product';
 
 
 interface ICatalogPageProps {
-  productsData: ApolloQueryResult<IResProductsCard>
+  productsData: ApolloQueryResult<IResProductsCard>;
+  isBot: boolean;
 }
-export default function CatalogPage({ productsData }: ICatalogPageProps) {
+
+
+export default function CatalogPage({ productsData, isBot }: ICatalogPageProps) {
 
   console.log(productsData)
-  // const {error} = useQuery(GET_SHOPIFY_PRODUCTS)
-  // console.log(error)
-  // const { networkConnection } = useNetworkConnection()
-
-  // React.useEffect(() => {
-  //   console.log(networkConnection)
-  // }, [networkConnection])
 
   return (
     <>
-      <Main className='h-[200vh] ' >
-        <Catalog productsData={productsData} />
+      <Main>
+        <Catalog productsData={productsData} isBot={isBot} />
       </Main>
     </>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale = '' }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale = '', req }) => {
 
   const clientShopify = initializeApolloShopify()
 
@@ -52,10 +52,22 @@ export const getServerSideProps: GetServerSideProps = async ({ locale = '' }) =>
 
   }
 
+  const t = {
+    ...res,
+    data: {
+      products: {
+        edges: createRandomProductCard({ length: 20 })
+      }
+    }
+  }
+
+  const userAgent = req.headers['user-agent']
+  const isBot = userAgent ? isIdxBot({ userAgent: userAgent }) : false
 
   return {
     props: {
-      productsData: res,
+      isBot,
+      productsData: t,
       ...(await serverSideTranslations(locale, ['common', 'routers']))
     }
   }

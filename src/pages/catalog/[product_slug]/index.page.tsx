@@ -1,12 +1,12 @@
 import React from 'react';
 import { GetServerSideProps, } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { initializeApollo } from '@/app/libs/apollo/apollo-client-shopify';
 import { Container, Main } from '@/shared/ui-kit';
 import { ApolloQueryResult } from '@apollo/client';
 import { GET_SHOPIFY_SINGLE_PRODUCT, IResSingleProduct } from '@/entities/product/schemes/get-single-product';
 import Image from 'next/image';
 import cn from 'classnames';
+import { initializeApolloShopify } from '@/shared/libs/apollo';
 
 
 interface ICatalogPageProps {
@@ -36,7 +36,7 @@ export default function SingleProductPage({ productData }: ICatalogPageProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale = '', query }) => {
 
-  const client = initializeApollo()
+  const client = initializeApolloShopify()
 
   let res: ApolloQueryResult<IResSingleProduct> | null = null
 

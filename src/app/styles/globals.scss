@@ -27,8 +27,8 @@
 html {
 
     font-weight: 300;
+    font-size: 14px;
 
-    @apply transition-all;
     @include scrollbar();
 
     &[data-mode="dark"] {
@@ -37,8 +37,7 @@ html {
     }
 
     &[data-mode="light"] {
-        @apply text-black bg-light-200;
-
+        @apply bg-light-200  text-dark-800;
     }
 }
 html, body , #__next{

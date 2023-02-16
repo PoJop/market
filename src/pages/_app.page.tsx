@@ -7,6 +7,7 @@ import { firaSansFont } from '@/app/fonts/fira-sans'
 import { ApolloProvider } from '@apollo/client'
 // import { useApollo } from '@/app/libs/apollo/apollo-client'
 import cn from 'classnames'
+import { Cookies } from '@/features'
 // import { Provider } from 'react-redux'
 // import store from '@/app/store/store'
 // import { useAppMode } from '@/app/hooks/useAppMode'
@@ -25,10 +26,11 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <div className={cn(firaSansFont.className, "h-full")}>
+      <div className={cn(firaSansFont.className, "flex flex-col")}>
         <Header />
         <Component {...pageProps} />
         <Footer />
+        <Cookies />
       </div>
     </>
     // <ApolloProvider client={apolloClient}>
